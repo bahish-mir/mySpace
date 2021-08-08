@@ -1,3 +1,5 @@
+package db;
+
 import model.Article;
 
 import java.sql.*;
