@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,6 +17,12 @@
     <title>mySpace</title>
 </head>
 <body>
-    <h2>Мой Космос!!!</h2>
+    <h2>authorization</h2>
+    <form method="post" action="<c:url value="/authorization"/>">
+        <input type="text" name="login">
+        <input type="password" name="password">
+        <input type="submit" value="Log In">
+    </form>
+
 </body>
 </html>
