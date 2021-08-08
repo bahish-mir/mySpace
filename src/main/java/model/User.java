@@ -40,7 +40,9 @@ public class User {
     }
 
     public void setArticles(LinkedList<Article> articles) {
-        this.articles = articles;
+        if (articles != null) {
+            this.articles = articles;
+        }
     }
 
     public Article getArticle(int id) {
