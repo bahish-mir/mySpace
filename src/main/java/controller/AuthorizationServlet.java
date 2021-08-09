@@ -20,7 +20,6 @@ public class AuthorizationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        System.out.println(login + ";" + password + ";");
         User user = UsersDB.selectOne(login, password);
         RequestDispatcher rd = null;
 
