@@ -11,7 +11,7 @@ public class ArticlesDB {
     private static final String DB_PASSWORD = "tadam";
 
     public static LinkedList<Article> selectArticlesForThisUser(int userID) {
-        LinkedList<Article> articles = null;
+        LinkedList<Article> articles = new LinkedList<>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -22,10 +22,10 @@ public class ArticlesDB {
                 try(PreparedStatement ps = cn.prepareStatement(sqlFindArticlesByUserID)) {
                     ps.setInt(1, userID);
                     ResultSet rs = ps.executeQuery();
-                    String sqlSelectArticlesByUserID = "select * from article where id = ?";
+                    String sqlSelectArticlesByUserID = "select * from articles where id = ?";
 
                     while (rs.next()) {
-                        int articleID = rs.getInt("id");
+                        int articleID = rs.getInt("articleID");
                         PreparedStatement psForSelect = cn.prepareStatement(sqlSelectArticlesByUserID);
                         psForSelect.setInt(1, articleID);
                         ResultSet resultSet = psForSelect.executeQuery();
@@ -33,7 +33,7 @@ public class ArticlesDB {
                         if (resultSet.next()) {
                             String header = resultSet.getString("header");
                             String shortDescription = resultSet.getString("shortDescription");
-                            String textArticle = resultSet.getString("textArticle");
+                            String textArticle = resultSet.getString("textArticles");
                             String dateCreate = resultSet.getString("dateCreate");
                             String author = resultSet.getString("author");
 
@@ -42,11 +42,9 @@ public class ArticlesDB {
                         }
                     }
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
 
         return articles;
