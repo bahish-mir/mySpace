@@ -25,15 +25,16 @@ public class AuthorizationServlet extends HttpServlet {
 
         try {
             if (user == null) {
-                throw new NotFoundUserException("User not found by login", login);
+                throw new NotFoundUserException("User not found by login");
             }
-            request.setAttribute("message", "You were successfully Logged In!!!");
+            //request.setAttribute("message", "You were successfully Logged In!!!");
             request.setAttribute("user", user);
+            request.setAttribute("articles", user.getArticles());
             rd = request.getRequestDispatcher("view/main.jsp");
 
         } catch (NotFoundUserException e) {
-            request.setAttribute("message", e.getErr() + e.getMessage());
-            rd = request.getRequestDispatcher("view/notfound.jsp");
+            request.setAttribute("message", e.getMessage());
+            rd = request.getRequestDispatcher("view/registration.jsp");
             e.printStackTrace();
             System.err.println(e.getMessage());
         }
