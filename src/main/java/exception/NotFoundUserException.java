@@ -6,6 +6,10 @@ public class NotFoundUserException extends Exception{
     public NotFoundUserException() {
     }
 
+    public NotFoundUserException(String message) {
+        super(message);
+    }
+
     public NotFoundUserException(String message, String err) {
         super(message);
         this.err = err;
