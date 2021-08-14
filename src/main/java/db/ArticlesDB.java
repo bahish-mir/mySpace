@@ -49,4 +49,61 @@ public class ArticlesDB {
 
         return articles;
     }
+
+    public static void recordThisArticle(String header, String shortDescription, String textArticles, String dateCreate, String author) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try(Connection cn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+                String sqlInsertArticle = "insert into articles (header, shortDescription," +
+                        " textArticles, dateCreate, author) values (?, ?, ?, ?, ?)";
+
+                try (PreparedStatement ps = cn.prepareStatement(sqlInsertArticle)) {
+                    ps.setString(1, header);
+                    ps.setString(2, shortDescription);
+                    ps.setString(3, textArticles);
+                    ps.setString(4, dateCreate);
+                    ps.setString(5, author);
+
+                    ps.executeUpdate();
+                }
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Article selectOne(String header, String shortDescription, String textArticles, String dateCreate, String author) {
+        Article article = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try(Connection cn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+                String sqlSelectOneArticleByParams = "select from articles where header=? " +
+                        "and shortDescription=? and textArticles=? and dateCreate=? and author=?";
+
+                try(PreparedStatement ps = cn.prepareStatement(sqlSelectOneArticleByParams)) {
+                    ps.setString(1, header);
+                    ps.setString(2, shortDescription);
+                    ps.setString(3, textArticles);
+                    ps.setString(4, dateCreate);
+                    ps.setString(5, author);
+                    ResultSet rs = ps.executeQuery();
+
+                    if (rs.next()) {
+                        int articleID = rs.getInt("id");
+                        article = new Article(articleID, header, shortDescription, textArticles, dateCreate, author);
+                    }
+
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return article;
+    }
 }
