@@ -14,15 +14,21 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>mySpace</title>
+    <link rel="stylesheet" href="resources/css/index.css" type="text/css">
+    <title>MySpace</title>
 </head>
 <body>
-    <h2>authorization</h2>
-    <form method="post" action="<c:url value="/authorization"/>">
-        <input type="text" name="login">
-        <input type="password" name="password">
-        <input type="submit" value="Log In">
-    </form>
+
+    <div class="container">
+        <div class="wrapper">
+            <h1 class="authorization">Authorization</h1>
+            <form class="form" method="post" action="<c:url value="/authorization"/>">
+                <input type="text" name="login" placeholder="Login">
+                <input type="password" name="password" placeholder="Password">
+                <input class="input-submit" type="submit" value="Log In">
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>
